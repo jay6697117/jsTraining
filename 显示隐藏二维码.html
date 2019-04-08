@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>显示隐藏二维码</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="https://www.taobao.com/favicon.ico" type="image/x-icon" />
+    <style type="text/css">
+      /* 通用样式 */
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        font-size: 100px;
+      }
+
+      /* 借鉴百度body样式 */
+      body {
+        font-size: 0.13rem;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #000000;
+        background-color: #f1f1f1;
+      }
+
+      a {
+        display: block;
+      }
+      img {
+        display: block;
+      }
+
+      /* 页面样式 */
+      .qrCode {
+        /* 设置宽高 */
+        width: 0.5rem;
+        height: 0.5rem;
+        /* 改变鼠标指针形状 */
+        cursor: pointer;
+        /* 背景 */
+        background-image: url('./img/e_coder_normal.png');
+        background-repeat: no-repeat;
+        /* 定位 */
+        position: fixed;
+        left: 0;
+        top: 40%;
+        margin-top: -0.25rem;
+      }
+      .qrCode-app {
+        /* 隐藏 */
+        display: none;
+        /* 定位 */
+        position: absolute;
+        left: 0.5rem;
+        top: -0.5rem;
+      }
+      .qrCode-app > img {
+        /* 设置宽高 */
+        width: 1.5rem;
+        height: 1.5rem;
+        /* 撑满防止出现间隙 */
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="qrCode">
+      <div class="qrCode-app">
+        <img src="./img/e_coder.jpg" alt="二维码" />
+      </div>
+    </div>
+    <div style="height:30rem;background: url('./img/pic.jpg') repeat;"></div>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        // 1.获取相应的标签
+        var qrCode = document.querySelector('.qrCode');
+        var qrCodeApp = document.querySelector('.qrCode-app');
+        // 2.监听鼠标进入
+        qrCode.onmouseover = function() {
+          // 2.1 改变背景图片
+          this.style.backgroundImage = 'url("./img/e_coder_selected.png")';
+          // 2.2 显示二维码
+          qrCodeApp.style.display = 'block';
+        };
+
+        // 3.监听鼠标离开
+        qrCode.onmouseout = function() {
+          // 3.1 改变背景图片
+          this.style.backgroundImage = 'url("./img/e_coder_normal.png")';
+          // 3.2 隐藏二维码
+          qrCodeApp.style.display = 'none';
+        };
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>简化版相册二</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <base target="_blank" />
+
+    <style type="text/css">
+      .container {
+        text-align: center;
+      }
+      .wrap {
+        display: inline-block;
+      }
+      .img-big {
+        width: 5rem;
+      }
+      .img-list {
+        width: 5rem;
+        box-sizing: border-box;
+        padding: 0.05rem 1.7rem;
+      }
+      .img-list > li {
+        float: left;
+        margin-left: 0.1rem;
+      }
+      .img-small {
+        display: block;
+        width: 0.2rem;
+        height: 0.2rem;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrap">
+        <!-- 大图描述 -->
+        <p class="desc">蒲公英</p>
+        <!-- 大图展示 -->
+        <img class="img-big" src="./img/1.jpg" />
+        <!-- 小图列表 -->
+        <ul class="img-list clearfix">
+          <li>
+            <a href="#">
+              <img class="img-small" src="./img/1.jpg" title="蒲公英" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img class="img-small" src="./img/2.jpg" title="热气球" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img class="img-small" src="./img/3.jpg" title="别致小屋" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img class="img-small" src="./img/4.jpg" title="高山湖水" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img class="img-small" src="./img/5.jpg" title="高速公路" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        //1.获取需要的标签
+        var smaImgList = document.querySelectorAll('.img-small');
+        // console.log(smaImgList);
+        var desc = document.querySelector('.desc');
+        // console.log(desc);
+        var bigImg = document.querySelector('.img-big');
+        // console.log(bigImg);
+
+        //2.绑定事件
+        for (let index = 0; index < smaImgList.length; index++) {
+          const smaImg = smaImgList[index];
+          // console.log(smaImg);
+          smaImg.onmouseover = function() {
+            bigImg.src = this.getAttribute('src');
+            desc.innerHTML = this.getAttribute('title');
+            this.onclick = function() {
+              return false;
+            };
+          };
+        }
+      };
+    </script>
+  </body>
+</html>

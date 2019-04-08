@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tab选项卡</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edg,chrome=1" />
+    <link rel="shortcut icon" href="https://statichome.weimob.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <!-- css -->
+    <style>
+      /* 初始化a标签颜色  */
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:active {
+        color: #000000;
+      }
+
+      /* 容器 */
+      .wrap {
+        /* 公用 */
+        font-size: 0.16rem;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ffffff;
+        /* 私有 */
+        padding-top: 1rem;
+      }
+
+      .tab {
+        max-width: 100%;
+        width: 5rem;
+        height: 1.2rem;
+        box-sizing: content-box;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+      }
+
+      /* 头部区域 */
+      .tab-header {
+        height: 0.3rem;
+        background-color: #eee;
+      }
+
+      .tab-header>ul {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .tab-header>ul>li {
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        line-height: 0.3rem;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .tab-header>ul>li:hover {
+        color: red;
+        font-weight: bold;
+      }
+
+      .tab-header>ul>li:nth-child(1) {
+        border-left: none !important;
+      }
+
+      .tab-header>ul>li:nth-child(5) {
+        border-right: none !important;
+      }
+
+      .tab-header>ul>li.selected {
+        background-color: #fff;
+        border-bottom: none;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+
+      /* 主体区域 */
+      .tab-body {
+        height: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+      }
+
+      .tab-body>.dom {
+        height: 0.9rem;
+        display: none;
+      }
+
+      .tab-body>.dom.active {
+        display: block;
+      }
+
+      .dom>ul {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .dom>ul>li {
+        width: 50%;
+        height: 50%;
+        text-align: center;
+        line-height: 0.45rem;
+        font-size: 0.16rem;
+        overflow: hidden;
+      }
+
+      .dom>ul>li>a:hover {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="tab">
+        <!-- 头部 -->
+        <div class="tab-header">
+          <ul>
+            <li class="selected">公告</li>
+            <li>规则</li>
+            <li>论坛</li>
+            <li>安全</li>
+            <li>公益</li>
+          </ul>
+        </div>
+        <!-- 内容 -->
+        <div class="tab-body">
+          <div class="dom active">
+            <ul>
+              <li><a href="javascript:void(0);">数据七夕:金牛爱送玫瑰</a></li>
+              <li><a href="javascript:void(0);"> 阿里打造"互联网监管"</a></li>
+              <li><a href="javascript:void(0);">10万家店60万新品</a></li>
+              <li><a href="javascript:void(0);">全球最大网上时装周</a></li>
+            </ul>
+          </div>
+          <div class="dom">
+            <ul>
+              <li>
+                <a href="javascript:void(0);">“全额返现”要管控啦</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">淘宝新规发布汇总(7月)</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">炒信规则调整意见反馈</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">质量相关规则近期变更</a>
+              </li>
+            </ul>
+          </div>
+          <div class="dom">
+            <ul>
+              <li>
+                <a href="javascript:void(0);">阿里建商家全链路服务</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">个性化的消费时代来临</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">跨境贸易是中小企业机</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">美妆行业虚假信息管控</a>
+              </li>
+            </ul>
+          </div>
+          <div class="dom">
+            <ul>
+              <li>
+                <a href="javascript:void(0);">接次文件，毁了一家店</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">账号安全神器阿里钱盾</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">新版阿里110上线了</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">卖家学违禁避免被处罚</a>
+              </li>
+            </ul>
+          </div>
+          <div class="dom">
+            <ul>
+              <li>
+                <a href="javascript:void(0);">为了公益high起来</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">魔豆妈妈在线申请</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- js -->
+    <script>
+      /**
+       * @description 通过选择器获取 Node first$(selector)
+       * @param {string} selector
+       * @returns
+       */
+      function first$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelector(selector);
+        } else {
+          null;
+        }
+      }
+
+      /**
+       * @description 通过选择器获取 NodeList all$(selector)
+       * @param {string} selector
+       * @returns
+       */
+      function all$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelectorAll(selector);
+        } else {
+          null;
+        }
+      }
+    </script>
+    <script>
+      'use strict';
+      window.onload = function() {
+        let liList = all$('.tab-header > ul > li');
+        let domList = all$('.tab-body > .dom');
+
+        for (let i = 0; i < liList.length; i++) {
+          const liCurrent = liList[i];
+          const domCurrent = domList[i];
+          liCurrent.onmouseover = function() {
+            for (let j = 0; j < liList.length; j++) {
+              const liEvery = liList[j];
+              const domEvery = domList[j];
+              liEvery.className = '';
+              domEvery.className = 'dom';
+            }
+            liCurrent.className = 'selected';
+            domCurrent.className = 'dom active';
+          };
+        }
+      };
+    </script>
+  </body>
+</html>

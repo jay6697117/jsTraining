@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>正则表达式原理</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edg,chrome=1" />
+    <link rel="shortcut icon" href="https://www.sogou.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <!-- css -->
+    <style>
+      /* 容器 */
+      .container {
+        font-size: 0.16rem;
+        width: 100vw;
+        height: 100vh;
+        max-width: 750px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+
+      .container > label {
+        margin-right: 0.05rem;
+      }
+
+      .container > label > .score {
+        border: 1px solid darkgray;
+      }
+
+      .container > .prompt {
+        font-size: 0.13rem;
+        color: darkgray;
+      }
+
+      .container > .right {
+        background-image: url('./img/image01/right.png');
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: 0.15rem 0.15rem;
+        color: darkgreen;
+        padding-left: 0.15rem;
+      }
+
+      .container > .error {
+        background-image: url('./img/image01/error.png');
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: 0.15rem 0.15rem;
+        color: red;
+        padding-left: 0.15rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <label><span>您的成绩:&nbsp;</span><input class="score" type="text" placeholder="请输入分数"/></label
+      ><span class="prompt">请输入您的成绩!</span>
+    </div>
+    <!-- js -->
+    <script>
+      /**
+       * @description 通过选择器获取 Node first$(selector)
+       * @param {string} selector
+       * @returns
+       */
+      function first$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelector(selector);
+        } else {
+          null;
+        }
+      }
+
+      /**
+       * @description 通过选择器获取 NodeList all$(selector)
+       * @param {string} selector
+       * @returns
+       */
+      function all$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelectorAll(selector);
+        } else {
+          null;
+        }
+      }
+
+      /**
+       * @description 处理公共样式 dealStyle(msg, className, borderColor)
+       * @param {string} msg
+       * @param {string} className
+       * @param {string} borderColor
+       * @param {string} selector
+       */
+      function dealStyle(msg, className, borderColor) {
+        first$('.prompt').innerHTML = msg;
+        first$('.prompt').className = className;
+        first$('.score').style.borderColor = borderColor;
+      }
+    </script>
+
+    <script>
+      window.onload = function() {
+        // 1.失去焦点
+        first$('.score').onblur = function() {
+          //备注: input标签中的value属性值始终是字符串类型，并且用户输入时可能误输入空格
+
+          //去除用户输入的字符串中的空格，提升用户体验
+          this.value = this.value.replace(/\s*/g, '');
+
+          //判断字符串是否匹配浮点数的正则表达式
+          // var reg = /^(-?\d+)(\.\d+)?$/g; //等同于下面的写法，
+          var reg = new RegExp('^(-?\\d+)(\\.\\d+)?$', 'g'); //上面的方法更为简便
+
+          // 得出匹配结果: true or false
+          var result = reg.test(this.value);
+
+          if (result) {
+            //执行字符串匹配浮点数的情况
+            //转换number类型
+            var score = parseFloat(this.value);
+            console.log(score);
+            if (score >= 0 && score <= 100) {
+              dealStyle('输入成绩格式正确', 'prompt right', 'darkgreen');
+            } else {
+              dealStyle('输入成绩必须在0～100之间', 'prompt right', 'darkgreen');
+            }
+          } else {
+            //执行不匹配浮点数的情况
+            console.log(this.value);
+            dealStyle('输入成绩格式有误', 'prompt error', 'red');
+          }
+        };
+
+        // 2.得到焦点
+        first$('.score').onfocus = function() {
+          dealStyle('请输入您的成绩!', 'prompt', 'darkgray');
+          this.value = '';
+        };
+      };
+    </script>
+  </body>
+</html>

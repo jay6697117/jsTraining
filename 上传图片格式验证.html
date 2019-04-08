@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>上传图片格式验证</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edg,chrome=1" />
+    <link rel="shortcut icon" href="https://www.zhihu.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <!-- css -->
+    <style>
+      /* 容器 */
+      .wrap {
+        /* 公用 */
+        width: 100vw;
+        height: 100vh;
+        font-size: 0.16rem;
+        background-color: #ffffff;
+        /* 私有 */
+        padding-top: 1rem;
+      }
+
+      div.box {
+        font-size: 16px;
+        /* 伸缩布局 */
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .label {
+        font-size: 18px;
+        font-family: inherit;
+        width: 80px;
+        min-width: 80px;
+      }
+
+      .file {
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 5px;
+        background-color: #e1e1e1;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="box">
+        <label class="label">上传图片:</label>
+        <input type="file" class="file" />
+      </div>
+    </div>
+    <!-- js -->
+    <script>
+      /**
+       * @description 通过选择器获取 Node first$(selector)
+       * @param {*} selector
+       * @returns
+       */
+      function first$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelector(selector);
+        } else {
+          null;
+        }
+      }
+
+      /**
+       * @description 通过选择器获取 NodeList all$(selector)
+       * @param {*} selector
+       * @returns
+       */
+      function all$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelectorAll(selector);
+        } else {
+          null;
+        }
+      }
+    </script>
+    <script>
+      window.onload = function() {
+        let file = first$('.file');
+        // 监听作用域的变化onchange
+        file.onchange = function() {
+          //1.获取文件路径
+          let path = this.value;
+          //2.在路径字符串中点的索引值
+          let pointIndex = path.lastIndexOf('.');
+          //3.截取文件后缀
+          let suffix = path.substr(pointIndex);
+          //4.统一转成小写
+          let suffixLower = suffix.toLowerCase();
+          //5.判断
+          if (suffixLower === '.jpeg' || suffixLower === '.jpg' || suffixLower === '.png' || suffixLower === '.gif') {
+            alert('您上传图片格式正确');
+          } else {
+            this.value = null;
+            alert('您上传图片格式错误');
+          }
+        };
+      };
+    </script>
+  </body>
+</html>

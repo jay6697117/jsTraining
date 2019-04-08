@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>发表和删除评论</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edg,chrome=1" />
+    <link rel="shortcut icon" href="https://weibo.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <!-- css -->
+    <style>
+      textarea,
+      button {
+        border: 0;
+        outline: 0;
+      }
+
+      /* 容器 */
+      .wrap {
+        /* 公用 */
+        width: 100%;
+        height: 100%;
+        font-size: 0.16rem;
+        background-color: #ffffff;
+        /* 私有 */
+        padding-top: 0.5rem;
+      }
+
+      .discuss {
+        width: 100vw;
+        max-width: 750px;
+        margin: 0 auto;
+        background-color: #e8e8e8;
+      }
+
+      /* 头部 */
+      .discuss-top {
+        width: 100%;
+        padding: 0.2rem;
+      }
+
+      .discuss-top > * {
+        display: block;
+      }
+      .discuss-top > label {
+        margin-bottom: 0.02rem;
+      }
+      .discuss-top > .discuss-content {
+        width: 100%;
+        min-height: 2rem;
+        font-size: 0.13rem;
+        border: 1px solid #ccc;
+        margin-bottom: 0.05rem;
+      }
+      .discuss-top > .btn > button {
+        padding: 0.01rem 0.1rem;
+        border: 1px solid #ccc;
+        margin-right: 0.1rem;
+        font-size: 0.13rem;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+      }
+
+      /* 底部 */
+      .discuss-bottom {
+        width: 100%;
+        padding: 0.2rem;
+      }
+
+      .discuss-bottom > ul {
+        margin-bottom: 0.05rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+      }
+
+      .discuss-bottom > ul > li {
+        line-height: 0.22rem;
+      }
+      .discuss-bottom > ul > .discuss-item {
+        flex: 1;
+        padding: 0.04rem 0.1rem;
+        background-color: #ffffff;
+        border: 1px solid #999;
+        border-right: none;
+        /* 文本溢出修剪～待添加 */
+      }
+      .discuss-bottom > ul > .delete-btn {
+        padding: 0.04rem 0.1rem;
+        font-size: 0.22rem;
+        border: 1px solid #999;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+        /* 添加了伸缩布局 */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="discuss">
+        <div class="discuss-top">
+          <label>发表评论:</label>
+          <textarea class="discuss-content"></textarea>
+          <div class="btn"><button class="deliver-btn">发表</button><button class="reset-btn">清空</button></div>
+        </div>
+        <div class="discuss-bottom"></div>
+      </div>
+    </div>
+    <!-- js -->
+    <script>
+      /**
+       * @description 通过选择器获取 Node first$(selector)
+       * @param {*} selector
+       * @returns
+       */
+      function first$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelector(selector);
+        } else {
+          null;
+        }
+      }
+
+      /**
+       * @description 通过选择器获取 NodeList all$(selector)
+       * @param {*} selector
+       * @returns
+       */
+      function all$(selector) {
+        if (typeof selector === 'string') {
+          return document.querySelectorAll(selector);
+        } else {
+          null;
+        }
+      }
+    </script>
+    <script>
+      window.onload = function() {
+        let discussContent = first$('.discuss-content');
+        let deliverBtn = first$('.deliver-btn');
+        var resetBtn = first$('.reset-btn');
+        let discussBottom = first$('.discuss-bottom');
+
+        // 1.发表输入
+        deliverBtn.onclick = function() {
+          //1.取得输入文本
+          let text = discussContent.value;
+          //2.判断输入是否为空（后期可加入正则来优化）
+          if (text.length === 0) {
+            alert('请输入您的评论！');
+            return;
+          }
+          //3.创建li标签
+          let liTag1 = document.createElement('li');
+          liTag1.className = 'discuss-item';
+          liTag1.innerHTML = text;
+
+          let liTag2 = document.createElement('li');
+          liTag2.className = 'delete-btn';
+          liTag2.innerHTML = '<div class="delete-btn"><span>删除</span></div>';
+
+          //4.创建ul标签
+          let ulTag = document.createElement('ul');
+          ulTag.appendChild(liTag1);
+          ulTag.appendChild(liTag2);
+
+          //5.ul标签插入html
+          discussBottom.insertBefore(ulTag, discussBottom.children[0]);
+          //6.清空输入
+          discussContent.value = '';
+
+          // 7.删除评论
+          let deleteList = all$('.discuss-bottom > ul');
+          for (let i = 0; i < deleteList.length; i++) {
+            const deleteItem = deleteList[i];
+            let deleteBtn = deleteItem.children[1];
+            deleteBtn.onclick = function() {
+              deleteItem.remove();
+            };
+          }
+        };
+        //2.重置输入
+        resetBtn.onclick = function() {
+          discussContent.value = '';
+        };
+      };
+    </script>
+  </body>
+</html>
